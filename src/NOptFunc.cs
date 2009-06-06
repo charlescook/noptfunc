@@ -58,27 +58,27 @@ namespace CookComputing
           {
             if (attr.Long != null)
             {
-              if (options.Select(opt => opt.LongOpt).Contains(attr.Long))
+              if (options.Select(opt => opt.Long).Contains(attr.Long))
                 throw new Exception("attributed long name in use");
               else
-                option.LongOpt = attr.Long;
+                option.Long = attr.Long;
             }
             else
-              option.LongOpt = longName;
+              option.Long = longName;
             if (attr.Short != default(char))
             {
-              if (options.Select(opt => opt.ShortOpt).Contains(attr.Short))
+              if (options.Select(opt => opt.Short).Contains(attr.Short))
                 throw new Exception("attributed short name in use");
               else
-                option.ShortOpt = attr.Short;
+                option.Short = attr.Short;
             }
             else
-              option.ShortOpt = shortName;
+              option.Short = shortName;
           }
           else
           {
-            option.LongOpt = longName;
-            option.ShortOpt = shortName;
+            option.Long = longName;
+            option.Short = shortName;
           }
           if (shortName == default(char))
             throw new Exception("unable to find suitable short name");
@@ -91,7 +91,7 @@ namespace CookComputing
     //-------------------------------------------------------------------------/
     private static char MatchShortName(string name, List<Option> options)
     {
-      return name.Except(options.Select(opt => opt.ShortOpt)).FirstOrDefault();
+      return name.Except(options.Select(opt => opt.Short)).FirstOrDefault();
     }
 
     //-------------------------------------------------------------------------/
@@ -114,8 +114,7 @@ namespace CookComputing
         {
           if (arg.Length == 1)
             throw new Exception("Invalid option");
-          arg = arg.Substring(1);
-          ProcessShortOption(arg, argEnumerator, options);
+          ProcessShortOption(arg.Substring(1), argEnumerator, options);
         }
         else
           ProcessPositional(arg, posEnumerator);
@@ -136,7 +135,7 @@ namespace CookComputing
     {
       int idx = arg.IndexOf("=");
       string name = idx > 0 ? arg.Substring(0, idx) : arg;
-      var optional = options.Where(opt => opt.LongOpt == name).FirstOrDefault();
+      var optional = options.Where(opt => opt.Long == name).FirstOrDefault();
       if (optional == null)
         throw new Exception("invalid long option");
       if (idx >= 0)
@@ -164,7 +163,7 @@ namespace CookComputing
       IEnumerator<string> argEnumerator, List<Option> options)
     {
       var optional = options.Where(
-        opt => opt.ShortOpt == arg[0]).FirstOrDefault();
+        opt => opt.Short == arg[0]).FirstOrDefault();
       if (optional == null)
         throw new Exception("invalid short option");
       if (optional.ArgType == typeof(bool))
@@ -242,8 +241,8 @@ namespace CookComputing
     private class Option
     {
       public Type ArgType { get; set; }
-      public char ShortOpt { get; set; }
-      public string LongOpt { get; set; }
+      public char Short { get; set; }
+      public string Long { get; set; }
       public object Default { get; set; }
       public object Value { get; set; }
     }

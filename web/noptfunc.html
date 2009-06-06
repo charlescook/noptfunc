@@ -53,7 +53,7 @@ written in Python.
 </p>
 
 <p>
-NOptFunc uses the optional parameter feature of C# 4.0 to 
+NOptFunc uses the default parameter value feature of C# 4.0 to 
 specify optional command line arguments. The parameters 
 of a function are used to specify both positional and 
 optional arguments, and at runtime the arguments supplied 
@@ -109,14 +109,14 @@ optionally alter the way the program runs.
 </p>
 
 <p>
-The non-optional parameters in the function passed to
+The standard parameters in the function passed to
 NOptFunc are treated as required arguments, known as 
 positional arguments. NOptFunc.Run verifies that the
 correct number of positional arguments have been supplied. 
 </p>
 
 <p>
-The optional parameters in the function passed to NOptFunc
+The parameters with default values in the function passed to NOptFunc
 are treated as option arguments, the default value 
 specified in the function declaration being the default
 value for the optional argument. 

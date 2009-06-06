@@ -19,7 +19,7 @@ namespace CookComputing
     //-------------------------------------------------------------------------/
     public static object Run(object instance, MethodInfo mi, string[] args)
     {
-      var result = AnalyzeOptions(mi);
+      var result = AnalyzeParameters(mi);
       ParseArgs(args, result.Item1, result.Item2);
       object[] parameters = result.Item1.Select(v => v.Value).Concat(
         result.Item2.Select(v => v.Value)).ToArray();
@@ -27,7 +27,7 @@ namespace CookComputing
     }
 
     //-------------------------------------------------------------------------/
-    private static Tuple<List<Positional>, List<Option>> AnalyzeOptions(
+    private static Tuple<List<Positional>, List<Option>> AnalyzeParameters(
       MethodInfo mi)
     {
       var positionals = new List<Positional>();

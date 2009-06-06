@@ -85,11 +85,16 @@ class Program
     // application code here
   }
 }
+
+<p>
+</p>
+
 </pre>
 
 <p>
 NOptFunc is maintained at the <a href="http://code.google.com/p/noptfunc/">noptfunc</a>
-Google Code project. To use it simply include 
+Google Code project. Currently it is not built into as a separate assembly. 
+To use it simply include 
 <a href="http://code.google.com/p/noptfunc/source/browse/trunk/src/NOptFunc.cs">NOptFunc.cs</a> 
 in your project (plain source file <a href="http://noptfunc.googlecode.com/svn/trunk/src/NOptFunc.cs">here</a>).
 </p>
@@ -130,8 +135,11 @@ The following types are supported:
 
 <p>
 Value types, those other than string in this list, can be 
-specified as Nullable&lt;T&gt; to allow the default value 
-of the type to be a valid value of the option.
+specified as Nullable&lt;T&gt; with null being the default
+value of the argument, which allows the default value 
+of the type to be a valid value of the option (for example
+use Nullable&lt;int&gt; to allow the user to specify
+zero as the value of the option).
 </p>
 
 <p>
@@ -148,7 +156,7 @@ public static void Run(string s, string apiKey = null,
 
 <p>
 's' is a required positional argument. api_key, geocoder 
-and list_geocoders are all options, with defaults provided. 
+and list_geocoders are all options with defaults provided. 
 </p>
 
 <p>

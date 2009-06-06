@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cook Computing</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.cookcomputing.com/blog/index.xml" /> 
+    <link type="text/css" rel="stylesheet" href="cookcomputingblog.css" />        
+</head>
+<body>
+<div id="container">
+ 
+<script type="text/javascript"><!--
+    google_ad_client = "pub-1318882515896843";
+    /* Cook Computing */
+    google_ad_slot = "3618132379";
+    google_ad_width = 728;
+    google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> 
+</script>
+ 
+<div id="menu">
+    <a href="http://www.cookcomputing.com/blog/index.html" title="Blog home page">Blog</a>&nbsp;&nbsp;
+    <a href="http://www.cookcomputing.com/blog/archives.html" title="Posts by title and monthly archives">Archives</a>&nbsp;&nbsp;
+    <a href="http://www.cookcomputing.com/blog/blogroll.aspx" 
+        title="Blogroll">Blogroll</a>&nbsp;&nbsp;
+    <a href="http://www.xml-rpc.net" title="An open source XML-RPC library for  .NET.">XML-RPC.NET</a>&nbsp;&nbsp;
+    <a href="http://www.cookcomputing.com/about.shtml" title="About Charles Cook">About</a>
+&nbsp;
+    <a href="http://www.cookcomputing.com/blog/index.xml"><img src="images/feed-icon16x16.png" 
+    alt="Subscribe" title="Subscribe to Cook Computing RSS feed"/></a>
+</div>
+ 
+<h1><a href="http://www.cookcomputing.com/blog/index.html">Cook Computing</a></h1>
+ 
+<h4>&nbsp;</h4>
+
+<h2 style="text-transform:none">NOptFunc</h2>
+
+<div class="blogbody">
+
+<h3>Overview</h3>
+
+<p>
+NOptFunc is a command line parser for C# which uses reflection 
+to generate a specification of command line positional and 
+option arguments. It is inspired by Simon Willison's 
+<a href="http://github.com/simonw/optfunc">optfunc</a>
+written in Python.
+</p>
+
+<p>
+NOptFunc uses the optional parameter feature of C# 4.0 to 
+specify optional command line arguments. The parameters 
+of a function are used to specify both positional and 
+optional arguments, and at runtime the arguments supplied 
+on the command line are parsed and then passed as parameters 
+to the function. In this example <i>filename</i> specifies 
+a required argument and <i>verbose</i> specifies an option.
+</p>
+
+<pre class="code">
+using System;
+using CookComputing;
+
+class Program
+{
+  static void Main(string[] args)
+  {
+    try
+    {
+      NOptFunc.Run(typeof(Program).GetMethod("Run"), args);
+    }
+    catch (Exception ex)
+    {
+      Console.Error.WriteLine(ex.Message);
+    }
+  }
+
+  public static void Run(string filename, bool verbose = false)
+  {
+    // application code here
+  }
+}
+</pre>
+
+<p>
+NOptFunc is maintained at the <a href="">noptfunc</a> Google
+Code project. To use it simply include 
+<a href="">NOptFunc.cs</a> 
+in your project.
+</p>
+
+<h3>Positional and Option Arguments</h3>
+
+<p>
+Arguments passed on a command can be divided into the
+arguments the program always requires and those that 
+optionally alter the way the program runs.
+</p>
+
+<p>
+The non-optional parameters in the function passed to
+NOptFunc are treated as required arguments, known as 
+positional arguments. NOptFunc.Run verifies that the
+correct number of positional arguments have been supplied. 
+</p>
+
+<p>
+The optional parameters in the function passed to NOptFunc
+are treated as option arguments, the default value 
+specified in the function declaration being the default
+value for the optional argument. 
+</p>
+
+<p>
+The following types are supported:
+</p>
+
+<ul>
+<li>bool</li>
+<li>string</li>
+<li>int</li>
+<li>long</li>
+<li>double</li>
+</ul>
+
+<p>
+Value types, those other than string in this list, can be 
+specified as Nullable&lt;T&gt; to allow the default value 
+of the type to be a valid value of the option.
+</p>
+
+<p>
+Consider this example:
+</p>
+
+<pre class="code">
+public static void Run(string s, string apiKey = null,
+  string geocoder="google", bool list_geocoders = false)
+{
+  // ...
+}
+</pre>
+
+<p>
+'s' is a required positional argument. api_key, geocoder 
+and list_geocoders are all options, with defaults provided. 
+</p>
+
+<p>
+The command line options generated from the parameter 
+names look like this:
+</p>
+
+<pre class="code">
+Options:
+  -h, --help            shows this help message and exit
+  -l, --list-geocoders
+  -a API_KEY, --api-key=API_KEY
+  -g GEOCODER, --geocoder=GEOCODER
+</pre>
+
+<p>
+Note that the boolean --list-geocoders is a flag and does
+not have an associated value on the command line.
+</p>
+
+<p>
+The short option is derived from the first letter of the 
+parameter. If that character is already in use, the second 
+character will be used and so on.
+</p>
+
+<p>
+The long option is the full name of the parameter with 
+underscores converted to hyphens.
+</p>
+
+<p>
+The Option attribute is used to customize the long and
+short names, for example:
+</p>
+
+<pre class="code">
+public static void Run(
+  [Option(Long="filename", Short="f")] string s)
+{
+  // ...
+}
+</pre>
+
+<p>
+This results in a short option of -f and a long option 
+of --filename.
+</p>
+
+<p>
+A variable number of positional parameters can be specified
+by using an array type, for example:
+</p>
+
+<pre class="code">
+public static void Run(string[] filenames)
+{
+  // ...
+}
+</pre>
+
+<p>
+There can only be one array type positional argument and
+any other positional arguments must precede it.
+</p>
+
+
+<h3>TODO</h3>
+
+<ul>
+<li>Improve error handling using custom exceptions</li>
+<li>Support for option descriptions</li>
+<li>Support for --help</li>
+<li>Support for --version</li>
+<li>Support for other argument types (DateTime)</li>
+<li>Sub-commands</li>
+</ul>
+
+
+</div> <!-- blogbody --> 
+ 
+<div id = "copyright">
+    Copyright &copy; 2009 Charles Cook.
+    <a href="http://validator.w3.org/check?uri=referer">Valid XHTML 1.0</a>
+</div>
+ 
+</div> <!-- container -->
+</body>
+</html>
+ 
+ 
+ 
+ 
+

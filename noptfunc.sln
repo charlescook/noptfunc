@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 10
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D07EDC1E-51FC-4558-B706-1E79A98F11B9}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		src\NOptFunc.cs = src\NOptFunc.cs
+		README.txt = README.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{25A9E72D-F352-402F-910B-A1D449BC11C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{37C5D410-E23E-461A-845F-73495188B1DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo", "demos\demo\demo.csproj", "{D94ADF80-F86F-4344-A829-819524839498}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37C5D410-E23E-461A-845F-73495188B1DC}.Debug|x86.ActiveCfg = Debug|x86
+		{37C5D410-E23E-461A-845F-73495188B1DC}.Debug|x86.Build.0 = Debug|x86
+		{37C5D410-E23E-461A-845F-73495188B1DC}.Release|x86.ActiveCfg = Release|x86
+		{37C5D410-E23E-461A-845F-73495188B1DC}.Release|x86.Build.0 = Release|x86
+		{D94ADF80-F86F-4344-A829-819524839498}.Debug|x86.ActiveCfg = Debug|x86
+		{D94ADF80-F86F-4344-A829-819524839498}.Debug|x86.Build.0 = Debug|x86
+		{D94ADF80-F86F-4344-A829-819524839498}.Release|x86.ActiveCfg = Release|x86
+		{D94ADF80-F86F-4344-A829-819524839498}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{25A9E72D-F352-402F-910B-A1D449BC11C0} = {D07EDC1E-51FC-4558-B706-1E79A98F11B9}
+	EndGlobalSection
+EndGlobal

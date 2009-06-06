@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using CookComputing;
 
 class Program
@@ -17,6 +18,9 @@ class Program
 
   public static void Run(string filename, bool verbose = false)
   {
-    Console.WriteLine("filename: {0}  verbose: {1}", filename, verbose);
+    string s = File.ReadAllText(filename);
+    if (verbose)
+      Console.WriteLine("Processing {0} bytes...", s.Length);
+    Console.WriteLine(s.ToUpper());
   }
 }

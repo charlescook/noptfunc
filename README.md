@@ -4,7 +4,7 @@ NOptFunc
 Overview
 --------
 
-NOptFunc is a command line parser for C# which uses reflection to generate a specification of command line positional and option arguments. It is inspired by Simon Willison's optfunc written in Python. 
+NOptFunc is a command line parser for C# which uses reflection to generate a specification of command line positional and option arguments. It is inspired by Simon Willison's [optfunc][optfunc] written in Python. 
 
 NOptFunc uses the default parameter value feature of C# 4.0 to specify optional command line arguments. The parameters of a function are used to specify both positional and optional arguments, and at runtime the arguments supplied on the command line are parsed and then passed as parameters to the function. In this example filename specifies a required argument and verbose specifies an option. 
 
@@ -35,7 +35,7 @@ NOptFunc uses the default parameter value feature of C# 4.0 to specify optional 
 
 Run() specifies that there is one required argument &ndash filename &ndash and one option which is used on the command line as either -v or --verbose. 
 
-NOptFunc is maintained at the noptfunc Google Code project under the MIT License. Currently it is not built into as a separate assembly. To use it simply include NOptFunc.cs in your project (plain source file here). 
+To use NOptFunc simply include [NOptFunc.cs][code] in your project. 
 
 Positional and Option Arguments
 -------------------------------
@@ -110,9 +110,9 @@ ToDo
 * Sub-commands
 
 
+[optfunc]: http://github.com/simonw/optfunc
 
-
-
+[code]: https://raw.github.com/charlescook/noptfunc/master/src/NOptFunc.cs
 
 
 
